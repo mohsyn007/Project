@@ -1,36 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
-  const navigate=useNavigate();
-const {signInUser,signInWithGoogle}=useContext(AuthContext);
+  const navigate = useNavigate();
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
-    signInUser(email,password)
-    .then(result=>{
-      console.log(result.user);
-      e.target.reset();
-      navigate('/orders');
-    })
-    .catch(error=>{
-      console.log("ERROR",error.message);
-    })
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        e.target.reset();
+        navigate("/orders");
+      })
+      .catch((error) => {
+        console.log("ERROR", error.message);
+      });
   };
-  const handleGoogleSignIn=()=>{
+  const handleGoogleSignIn = () => {
     signInWithGoogle()
-    .then(result=>{
-      console.log(result.user);
-      navigate('/');
-    })
-    .catch(error=>{
-      console.log('ERROR',error.message);
-    })
-  }
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("ERROR", error.message);
+      });
+  };
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col ">
@@ -51,17 +56,23 @@ const {signInUser,signInWithGoogle}=useContext(AuthContext);
                 required
               />
             </div>
-            <div className="form-control">
+            <div className="form-control relative">
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="password"
                 className="input input-bordered"
                 required
               />
+              <button
+                onClick={handleShowPassword}
+                className="btn btn-xs absolute right-4 top-12 "
+              >
+               {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
@@ -73,9 +84,15 @@ const {signInUser,signInWithGoogle}=useContext(AuthContext);
             </div>
           </form>
           <p className="ml-4 mb-4">
-            New to this websit? Please <Link to={"/register"}>Register</Link>
+            New to this websit? Please{" "}
+            <Link to={"/register"}>
+              {" "}
+              <span className="text-red-600">Register</span>{" "}
+            </Link>
           </p>
-          <button onClick={handleGoogleSignIn} className="btn btn-accent">Sign Up With Google</button>
+          <button onClick={handleGoogleSignIn} className="btn btn-accent">
+            Sign Up With Google
+          </button>
         </div>
       </div>
     </div>
