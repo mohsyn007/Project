@@ -32,7 +32,7 @@ const signOutUser=()=>{
 }
 useEffect(()=>{
  const unSubscribe= onAuthStateChanged(auth,currentUser=>{
-  console.log('Currently user',currentUser);
+ 
   setUser(currentUser);
   setLoading(false);
 
@@ -44,11 +44,11 @@ useEffect(()=>{
 
 // onAuthStateChanged(auth,currentUser=>{
 //   if(currentUser){
-//     console.log('Currently loggen User',currentUser);
+//   
 //     setUser(currentUser);
 //   }
 //   else{
-//     console.log('No User Logged In');
+//     
 //     setUser(null);
 //   }
 // })

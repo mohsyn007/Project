@@ -1,20 +1,15 @@
+
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const districtData = {
-  "Dhaka": ["Adabor", "Badda", "Banani", "Bangshal", "Bimanbandar", "Cantonment", "Chawkbazar", "Demra", "Dhamrai", "Dhanmondi", "Dohar", "Gendaria", "Gulshan", "Hazaribagh", "Jatrabari", "Kadamtali", "Kafrul", "Kalabagan", "Kamrangirchar", "Keraniganj", "Khilkhet", "Khilgaon", "Lalbagh", "Mirpur", "Mohammadpur", "Motijheel", "Nawabganj", "New Market", "Pallabi", "Paltan", "Ramna", "Savar", "Shahbagh", "Shyampur", "Sutrapur", "Tejgaon", "Turag", "Uttara", "Uttarkhan"],
-  "Chattogram": ["Anwara", "Banshkhali", "Boalkhali", "Chandanaish", "Fatikchhari", "Hathazari", "Lohagara", "Mirsharai", "Patiya", "Rangunia", "Raozan", "Sandwip", "Satkania", "Sitakunda", "Chattogram City", "Bakalia", "Kotwali", "Double Mooring", "Patenga"],
-  "Khulna": ["Batiaghata", "Dacope", "Dumuria", "Dighalia", "Koyra", "Paikgachha", "Phultala", "Rupsa", "Terokhada", "Khulna Sadar", "Sonadanga", "Daulatpur"],
-  "Rajshahi": ["Bagha", "Bagmara", "Charghat", "Durgapur", "Godagari", "Mohanpur", "Paba", "Puthia", "Tanore", "Boalia", "Rajpara", "Shah Makhdum"],
-  "Sylhet": ["Balaganj", "Beanibazar", "Bishwanath", "Companiganj", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Sylhet Sadar", "Zakiganj"],
-  "Barishal": ["Agailjhara", "Babuganj", "Bakerganj", "Banaripara", "Gaurnadi", "Hizla", "Mehendiganj", "Muladi", "Wazirpur"],
-  "Rangpur": ["Badarganj", "Gangachara", "Kaunia", "Mithapukur", "Pirgachha", "Pirganj", "Rangpur Sadar", "Taraganj"],
-  "Mymensingh": ["Bhaluka", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Muktagachha", "Nandail", "Phulpur"],
-  "Cumilla": ["Barura", "Brahmanpara", "Burichang", "Chandina", "Chauddagram", "Daudkandi", "Debidwar", "Homna", "Laksam", "Monohorgonj", "Meghna", "Muradnagar", "Nangalkot", "Titas"],
-  "Jessore": ["Abhaynagar", "Bagherpara", "Chaugachha", "Jhikargachha", "Keshabpur", "Manirampur", "Sharsha"],
-  "Cox's Bazar": ["Chakaria", "Kutubdia", "Maheshkhali", "Pekua", "Ramu", "Teknaf", "Ukhia"],
+  Dhaka: ["Adabor", "Badda", "Banani", "Bangshal", "Bimanbandar", "Cantonment", "Dhanmondi", "Gulshan", "Mirpur", "Savar"],
+  Chattogram: ["Anwara", "Banshkhali", "Boalkhali", "Fatikchhari", "Hathazari", "Patenga", "Sandwip", "Satkania", "Sitakunda"],
+  Khulna: ["Batiaghata", "Dacope", "Dumuria", "Koyra", "Paikgachha", "Phultala", "Terokhada"],
+  Rajshahi: ["Bagha", "Bagmara", "Charghat", "Godagari", "Mohanpur", "Paba", "Tanore"],
+  Sylhet: ["Balaganj", "Beanibazar", "Fenchuganj", "Golapganj", "Jaintiapur", "Kanaighat"],
 };
 
 const Register = () => {
@@ -32,32 +27,48 @@ const Register = () => {
     district: "",
     thana: "",
     village: "",
+    termsAccepted: false,
   });
   const [error, setError] = useState("");
 
   const handleRegister = (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
+    const { password, confirmPassword, termsAccepted } = formData;
+
+    // Password and terms validation
+    if (!termsAccepted) {
+      setError("Please accept our terms and conditions.");
+      return;
+    }
+    if (password.length < 6) {
+      setError("Password should be at least 6 characters.");
+      return;
+    }
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      setError("Password must include uppercase, lowercase, and a special character.");
+      return;
+    }
+    if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
+
+    setError(""); // Clear any previous error
     createUser(formData.email, formData.password)
-      .then((result) => {
-        console.log(result.user);
+      .then(() => {
         e.target.reset();
         navigate("/login");
       })
-      .catch((error) => {
-        console.error("Error:", error.message);
-      });
+      .catch((error) => setError("Registration failed: " + error.message));
   };
 
-  const handleShowPassword = () => setShowPassword(!showPassword);
-  const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
-
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const updateThanas = (e) => {
@@ -67,101 +78,89 @@ const Register = () => {
   };
 
   return (
-    <div className="hero bg-base-200 w-f">
+    <div className="hero bg-base-200 w-full">
       <div className="hero-content flex-col">
-        <div className="text-center">
-          <h1 className="text-5xl font-bold">Register Now!</h1>
-        </div>
+        <h1 className="text-center text-5xl font-bold">Register Now!</h1>
         <div className="card bg-base-100 w-full max-w-lg shadow-2xl">
           <form onSubmit={handleRegister} className="card-body">
+            {/* Name Field */}
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Your Name</span>
-              </label>
+              <label className="label">Your Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                placeholder="Enter your name"
                 className="input input-bordered"
                 required
               />
             </div>
+            {/* Email Field */}
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
+              <label className="label">Email</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                placeholder="Enter your email"
                 className="input input-bordered"
                 required
               />
             </div>
+            {/* Phone Field */}
+            <div className="form-control">
+              <label className="label">Phone Number</label>
+              <input
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="input input-bordered"
+                required
+              />
+            </div>
+            {/* Password Field */}
             <div className="form-control relative">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
+              <label className="label">Password</label>
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                placeholder="Enter your password"
                 className="input input-bordered"
                 required
               />
               <button
                 type="button"
-                onClick={handleShowPassword}
+                onClick={() => setShowPassword(!showPassword)}
                 className="btn btn-xs absolute right-4 top-12"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
+            {/* Confirm Password Field */}
             <div className="form-control relative">
-              <label className="label">
-                <span className="label-text">Confirm Password</span>
-              </label>
+              <label className="label">Confirm Password</label>
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
-                placeholder="Confirm your password"
                 className="input input-bordered"
                 required
               />
               <button
                 type="button"
-                onClick={handleShowConfirmPassword}
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="btn btn-xs absolute right-4 top-12"
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
-            {error && <div className="text-red-600 mt-2">{error}</div>}
+
+            {/* District and Thana Selection */}
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Phone Number</span>
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                placeholder="Enter your phone number"
-                className="input input-bordered"
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">District</span>
-              </label>
+              <label className="label">District</label>
               <select
                 name="district"
                 value={formData.district}
@@ -176,49 +175,64 @@ const Register = () => {
                 ))}
               </select>
             </div>
-            {formData.district && (
+            {/* Thana Selection */}
+            {thanas.length > 0 && (
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Thana</span>
-                </label>
+                <label className="label">Thana</label>
                 <select
                   name="thana"
                   value={formData.thana}
                   onChange={handleInputChange}
                   className="select select-bordered"
-                  required
                 >
                   <option value="">Select a thana</option>
-                  {thanas.map((thana, index) => (
-                    <option key={index} value={thana}>
+                  {thanas.map((thana) => (
+                    <option key={thana} value={thana}>
                       {thana}
                     </option>
                   ))}
                 </select>
               </div>
             )}
+
+            {/* Village Field */}
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Village/House No./Holing No.</span>
-              </label>
+              <label className="label">Village</label>
               <input
                 type="text"
                 name="village"
                 value={formData.village}
                 onChange={handleInputChange}
-                placeholder="Enter your village"
                 className="input input-bordered"
+                required
               />
             </div>
+
+            {/* Terms and Conditions */}
+            <div className="form-control mt-4">
+              <label className="cursor-pointer label">
+                <input
+                  type="checkbox"
+                  name="termsAccepted"
+                  checked={formData.termsAccepted}
+                  onChange={handleInputChange}
+                  className="checkbox"
+                />
+                <span className="label-text ml-2">Accept terms and conditions</span>
+              </label>
+            </div>
+
+            {/* Error Message */}
+            {error && <div className="text-red-600 mt-2">{error}</div>}
+
+            {/* Register Button */}
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary">Register</button>
             </div>
           </form>
-          <p className="text-center">
+          <p className="text-center mt-4">
             Already have an account?{" "}
-            <Link to="/login" className="font-bold text-blue-600">
-              Login
-            </Link>
+            <Link to="/login" className="font-bold text-blue-600">Login</Link>
           </p>
         </div>
       </div>
@@ -227,3 +241,4 @@ const Register = () => {
 };
 
 export default Register;
+

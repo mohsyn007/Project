@@ -12,25 +12,25 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+   
     signInUser(email, password)
       .then((result) => {
-        console.log(result.user);
+      
         e.target.reset();
         navigate("/orders");
       })
       .catch((error) => {
-        console.log("ERROR", error.message);
+        
       });
   };
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
+        
         navigate("/");
       })
       .catch((error) => {
-        console.log("ERROR", error.message);
+       
       });
   };
   const handleShowPassword = () => {
