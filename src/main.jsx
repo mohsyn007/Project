@@ -11,6 +11,8 @@ import AuthProvider from "./providers/AuthProvider";
 import Orders from "./components/Orders";
 import PrivateRoute from "./routes/PrivateRoute";
 import Profile from "./components/Profile";
+import Seller from "./components/Seller";
+import BookExchange from "./components/BookExchange";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,15 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register> </Register>,
+      },
+      {
+        path:'seller',
+        element:<Seller></Seller>
+      },
+      {
+        path:'exchange',
+        element:<BookExchange></BookExchange>
+
       },
       {
         path:"orders",

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
+
 const districtData = {
   Dhaka: ["Adabor", "Badda", "Banani", "Bangshal", "Bimanbandar", "Cantonment", "Dhanmondi", "Gulshan", "Mirpur", "Savar"],
   Chattogram: ["Anwara", "Banshkhali", "Boalkhali", "Fatikchhari", "Hathazari", "Patenga", "Sandwip", "Satkania", "Sitakunda"],
@@ -76,8 +77,13 @@ const Register = () => {
     setFormData((prev) => ({ ...prev, district: selectedDistrict, thana: "" }));
     setThanas(districtData[selectedDistrict] || []);
   };
+  const handleSubmit=e=>{
+    e.preventDefault();
+    const name=e.target.name.value;
+  }
 
   return (
+    <form onSubmit={handleSubmit}>
     <div className="hero bg-base-200 w-full">
       <div className="hero-content flex-col">
         <h1 className="text-center text-5xl font-bold">Register Now!</h1>
@@ -237,6 +243,7 @@ const Register = () => {
         </div>
       </div>
     </div>
+    </form>
   );
 };
 

@@ -12,26 +12,20 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-   
+
     signInUser(email, password)
       .then((result) => {
-      
         e.target.reset();
         navigate("/orders");
       })
-      .catch((error) => {
-        
-      });
+      .catch((error) => {});
   };
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        
         navigate("/");
       })
-      .catch((error) => {
-       
-      });
+      .catch((error) => {});
   };
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -71,7 +65,7 @@ const Login = () => {
                 onClick={handleShowPassword}
                 className="btn btn-xs absolute right-4 top-12 "
               >
-               {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
