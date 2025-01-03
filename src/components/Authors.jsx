@@ -4,7 +4,7 @@ import sunil from '../assets/sunil.jpeg';
 import sordindu from '../assets/sordindu.jpeg';
 import sofa from '../assets/sofa.jpg';
 
-const Authors = () => {
+const Authors = ({handleAddToCart}) => {
     return (
         <div className="p-4">
             <div>
@@ -27,6 +27,7 @@ const Authors = () => {
                         {[ 
                             {
                                 name: "Humayun Ahmed",
+                                id:1,
                                 nationality: "Bangladeshi",
                                 book: "Opekkha",
                                 category: "Novels",
@@ -35,6 +36,7 @@ const Authors = () => {
                             },
                             {
                                 name: "Sunil Gangopadhyay",
+                                id:2,
                                 nationality: "Indian",
                                 book: "Shei Somay",
                                 category: "Time Trilogy",
@@ -43,6 +45,7 @@ const Authors = () => {
                             },
                             {
                                 name: "Ahmed Sofa",
+                                id:3,
                                 nationality: "Bangladeshi",
                                 book: "Ordhek Nari Ordhek Isshori",
                                 category: "Novels",
@@ -51,6 +54,7 @@ const Authors = () => {
                             },
                             {
                                 name: "Shordindu Bandapaday",
+                                id:4,
                                 nationality: "Indian",
                                 book: "Byomkesh Bokshi",
                                 category: "Detective",
@@ -80,7 +84,7 @@ const Authors = () => {
                                 </td>
                                 <td className=" p-2">{author.rating}</td>
                                 <td className=" p-2">
-                                    <button className="btn btn-warning">Buy Now!</button>
+                                    <button onClick={()=>handleAddToCart(author.book,author.name,author.category)} className="btn btn-warning">Add to Cart!</button>
                                 </td>
                             </tr>
                         ))}

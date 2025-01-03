@@ -40,9 +40,6 @@ const Navbar = ({addToCart}) => {
           </li>
         </>
       )}
-      <li>
-        <NavLink to={"/cart"}>Cart </NavLink>
-      </li>
     </>
   );
   return (

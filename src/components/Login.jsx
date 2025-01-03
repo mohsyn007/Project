@@ -31,10 +31,10 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col ">
+    <div className="flex justify-center items-center bg-base-200 w-full min-h-screen">
+  <div className="w-full max-w-md">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
+          <h1 className="text-5xl mb-8 font-bold">Login now!</h1>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <form onSubmit={handleLogin} className="card-body">

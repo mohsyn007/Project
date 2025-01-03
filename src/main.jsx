@@ -13,6 +13,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import Profile from "./components/Profile";
 import Seller from "./components/Seller";
 import BookExchange from "./components/BookExchange";
+import Cart from "./components/Cart";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path:'profile',
         element:<PrivateRoute><Profile></Profile></PrivateRoute>
+      },
+      {
+        path:'cart',
+        element:<Cart></Cart>
       }
     ],
   },
