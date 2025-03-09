@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "name": "C Programming",
+        "book": "C Programming",
+        "category": "Programming",
+       "price": "100Tk",
+        "image": "https://i.ibb.co.com/0yrbMmxC/images.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Electric Circuits",
+        "book": "Electric Circuits",
+        "category": "Electronics",
+        "price": "100Tk",
+        "image": "https://i.ibb.co.com/0yrbMmxC/images.jpg"
+    },
+    {
+        "id": 3,
+        "name": "C Programming",
+        "book": "C Programming",
+        "category": "Programming",
+       "price": "100Tk",
+       "image": "https://i.ibb.co.com/0yrbMmxC/images.jpg"
+    },
+    {
+        "id": 4,
+        "name": "C Programming",
+        "book": "C Programming",
+        "category": "Programming",
+       "price": "100Tk",
+       "image": "https://i.ibb.co.com/0yrbMmxC/images.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Electric Circuits",
+        "book": "Electric Circuits",
+        "category": "Electronics",
+        "price": "100Tk",
+        "image": "https://i.ibb.co.com/0yrbMmxC/images.jpg"
+    },
+    {
+        "id": 6,
+        "name": "C Programming",
+        "book": "C Programming",
+        "category": "Programming",
+        "price": "100Tk",
+        "image": "https://i.ibb.co.com/0yrbMmxC/images.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Electric Circuits",
+        "book": "Electric Circuits",
+        "category": "Electronics",
+        "price": "100Tk",
+        "image": "https://i.ibb.co.com/0yrbMmxC/images.jpg"
+    },
+    {
+        "id": 8,
+        "name": "C Programming",
+        "book": "C Programming",
+        "category": "Programming",
+        "price": "100Tk",
+        "image": "https://i.ibb.co.com/0yrbMmxC/images.jpg"
+    }
+]

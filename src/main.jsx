@@ -14,6 +14,7 @@ import Profile from "./components/Profile";
 import Seller from "./components/Seller";
 import BookExchange from "./components/BookExchange";
 import Cart from "./components/Cart";
+import OldBooks from "./components/OldBooks";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,13 @@ const router = createBrowserRouter([
       {
         path:'cart',
         element:<Cart></Cart>
+      },
+      {
+        path:'oldBooks',
+        element:<OldBooks></OldBooks>,
+        loader:()=>fetch('http://localhost:50001/seller').then(res => res.json())
       }
+
     ],
   },
 ]);

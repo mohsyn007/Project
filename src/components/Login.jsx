@@ -32,7 +32,7 @@ const Login = () => {
   };
   return (
     <div className="flex justify-center items-center bg-base-200 w-full min-h-screen">
-  <div className="w-full max-w-md">
+      <div className="w-full max-w-md">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl mb-8 font-bold">Login now!</h1>
         </div>

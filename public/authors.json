@@ -1,0 +1,75 @@
+[
+    {
+      "name": "Humayun Ahmed",
+      "id": 1,
+      "nationality": "Bangladeshi",
+      "book": "Opekkha",
+      "category": "Novels",
+      "price": "100 Tk",
+      "image": "https://i.ibb.co.com/B2kDf35L/46a8cf360b1e8c73-humayun-ahmed.jpg"
+    },
+    {
+      "name": "Sunil Gangopadhyay",
+      "id": 2,
+      "nationality": "Indian",
+      "book": "Shei Somay",
+      "category": "Time Trilogy",
+      "price": "100 Tk",
+      "image": "https://i.ibb.co.com/B2kDf35L/46a8cf360b1e8c73-humayun-ahmed.jpg"
+    },
+    {
+      "name": "Ahmed Sofa",
+      "id": 3,
+      "nationality": "Bangladeshi",
+      "book": "Ordhek Nari Ordhek Isshori",
+      "category": "Novels",
+     "price": "100 Tk",
+      "image": "https://i.ibb.co.com/B2kDf35L/46a8cf360b1e8c73-humayun-ahmed.jpg"
+    },
+    {
+      "name": "Shordindu Bandapaday",
+      "id": 4,
+      "nationality": "Indian",
+      "book": "Byomkesh Bokshi",
+      "category": "Detective",
+      "price": "100 Tk",
+      "image": "https://i.ibb.co.com/B2kDf35L/46a8cf360b1e8c73-humayun-ahmed.jpg"
+    },
+    {
+      "name": "Humayun Ahmed",
+      "id": 5,
+      "nationality": "Bangladeshi",
+      "book": "Opekkha",
+      "category": "Novels",
+      "price": "100 Tk",
+      "image": "https://i.ibb.co.com/B2kDf35L/46a8cf360b1e8c73-humayun-ahmed.jpg"
+    },
+    {
+      "name": "Sunil Gangopadhyay",
+      "id": 6,
+      "nationality": "Indian",
+      "book": "Shei Somay",
+      "category": "Time Trilogy",
+    "price": "100 Tk",
+      "image": "https://i.ibb.co.com/B2kDf35L/46a8cf360b1e8c73-humayun-ahmed.jpg"
+    },
+    {
+      "name": "Ahmed Sofa",
+      "id": 7,
+      "nationality": "Bangladeshi",
+      "book": "Ordhek Nari Ordhek Isshori",
+      "category": "Novels",
+      "price": "100 Tk",
+      "image": "https://i.ibb.co.com/B2kDf35L/46a8cf360b1e8c73-humayun-ahmed.jpg"
+    },
+    {
+      "name": "Shordindu Bandapaday",
+      "id": 8,
+      "nationality": "Indian",
+      "book": "Byomkesh Bokshi",
+      "category": "Detective",
+      "price": "100 Tk",
+      "image": "https://i.ibb.co.com/B2kDf35L/46a8cf360b1e8c73-humayun-ahmed.jpg"
+    }
+  ]
+  

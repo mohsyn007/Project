@@ -1,14 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 
-const Navbar = ({addToCart}) => {
+const Navbar = ({ addToCart }) => {
   const { user, signOutUser } = useContext(AuthContext);
+  const [isCartOpen, setIsCartOpen] = useState(false); // State to toggle cart visibility
 
   const handleSignOut = () => {
     signOutUser()
       .then(() => {})
       .catch((error) => {});
+  };
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+    console.log("Cart toggled:", !isCartOpen); // Debugging: Check if toggleCart works
   };
 
   const links = (
@@ -30,12 +36,10 @@ const Navbar = ({addToCart}) => {
       </li>
       {user && (
         <>
-          {" "}
           <li>
             <NavLink to={"/orders"}>Orders</NavLink>
           </li>
           <li>
-            {" "}
             <NavLink to={"/profile"}>Profile</NavLink>
           </li>
         </>
@@ -45,6 +49,7 @@ const Navbar = ({addToCart}) => {
       </li>
     </>
   );
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -77,27 +82,51 @@ const Navbar = ({addToCart}) => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      {/* here start */}
+
+      {/* Cart Icon */}
       <div className="ml-96">
         <div className="indicator">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-            />
-          </svg>
-          <span className="badge badge-sm indicator-item">{addToCart}</span>
+          <button onClick={toggleCart}> {/* Handle Cart Icon Click */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+          </button>
+          <span className="badge badge-sm indicator-item">{addToCart.length}</span>
         </div>
       </div>
-      {/* here end */}
+   {/* Cart Modal */}
+   {isCartOpen && (
+        <div className="absolute top-16 right-0 w-80 bg-white shadow-lg flex-col p-4 z-10">
+          <h2 className="text-xl font-bold mb-4">Your Cart</h2> {/* Separate Cart Header */}
+          {addToCart.length === 0 ? (
+            <p>Your cart is empty!</p>
+          ) : (
+            <ol className="list-decimal pl-5 space-y-2">
+              {/* Map over addToCart array and display book titles */}
+              {addToCart.map((item, index) => (
+                <li  key={index} className="flex py-1 px-5 border bg-blue-500">
+                 <p> {item.book || item.name} </p>
+                 <p>{item.price}</p>
+                </li>
+              ))}
+              <button className="btn btn-accent">Payment Now</button>
+            </ol>
+            
+          )}
+        </div>
+      )}
+
       <div className="navbar-end">
         {user ? (
           <>

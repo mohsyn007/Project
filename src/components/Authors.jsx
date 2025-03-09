@@ -1,95 +1,39 @@
-import React from 'react';
-import humayun from '../assets/humayun.jpeg';
-import sunil from '../assets/sunil.jpeg';
-import sordindu from '../assets/sordindu.jpeg';
-import sofa from '../assets/sofa.jpg';
+import React, { useState, useEffect } from 'react';
 
-const Authors = ({handleAddToCart}) => {
+const Authors = ({ handleAddToCart }) => {
+    const [authors, setAuthors] = useState([]);
+    
+    useEffect(() => {
+        // Here you should be fetching your authors data, assuming authors.json exists in the public directory
+        fetch('authors.json')
+        .then(res => res.json())
+        .then(data => setAuthors(data));
+    }, []);
+    
     return (
-        <div className="p-4">
-            <div>
-                <h3 className="text-3xl font-bold flex justify-center mt-10">Best Authors</h3>
-            </div>
-            <div className="mt-8 overflow-x-auto">
-                <table className="table-auto w-full  ">
-                    {/* Table Head */}
-                    <thead className="bg-gray-100">
-                        <tr>
-                            <th className=" p-2"></th>
-                            <th className=" p-2">Name</th>
-                            <th className=" p-2">Books and Category</th>
-                            <th className=" p-2">Rating</th>
-                            <th className=" p-2"></th>
-                        </tr>
-                    </thead>
-                    {/* Table Body */}
-                    <tbody>
-                        {[ 
-                            {
-                                name: "Humayun Ahmed",
-                                id:1,
-                                nationality: "Bangladeshi",
-                                book: "Opekkha",
-                                category: "Novels",
-                                rating: "7.7",
-                                image: humayun,
-                            },
-                            {
-                                name: "Sunil Gangopadhyay",
-                                id:2,
-                                nationality: "Indian",
-                                book: "Shei Somay",
-                                category: "Time Trilogy",
-                                rating: "8.9",
-                                image: sunil,
-                            },
-                            {
-                                name: "Ahmed Sofa",
-                                id:3,
-                                nationality: "Bangladeshi",
-                                book: "Ordhek Nari Ordhek Isshori",
-                                category: "Novels",
-                                rating: "7.5",
-                                image: sofa,
-                            },
-                            {
-                                name: "Shordindu Bandapaday",
-                                id:4,
-                                nationality: "Indian",
-                                book: "Byomkesh Bokshi",
-                                category: "Detective",
-                                rating: "9.2",
-                                image: sordindu,
-                            },
-                        ].map((author, index) => (
-                            <tr key={index}>
-                                <th className=" p-2"></th>
-                                <td className=" p-2">
-                                    <div className="flex items-center gap-3">
-                                        <div className="avatar">
-                                            <div className="mask mask-squircle h-12 w-12">
-                                                <img src={author.image} alt={author.name} />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="font-bold">{author.name}</div>
-                                            <div className="text-sm opacity-50">{author.nationality}</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className=" p-2">
-                                    {author.book}
-                                    <br />
-                                    <span className="badge badge-ghost badge-sm">{author.category}</span>
-                                </td>
-                                <td className=" p-2">{author.rating}</td>
-                                <td className=" p-2">
-                                    <button onClick={()=>handleAddToCart(author.book,author.name,author.category)} className="btn btn-warning">Add to Cart!</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+        <div>
+            <h3 className="text-3xl font-bold text-center mt-10">Best Authors Books</h3>
+            <div className="grid grid-cols-4 gap-0.5 mt-8 ml-2 container mx-auto">
+                {
+                    authors.map(author => (
+                        <div key={author.id} className="card max-w-xs bg-white shadow-xl rounded-lg">
+                            <img src={author.image} alt={author.name} className="w-full h-48 object-cover rounded-t-lg" />
+                            <div className="p-4">
+                                <h4 className="text-lg font-semibold">{author.name}</h4>
+                                <p className="text-sm text-gray-600">{author.nationality}</p>
+                                <p className="mt-2 font-medium text-gray-800">{author.book}</p>
+                                <span className="badge bg-blue-200 text-blue-800 mt-1">{author.category}</span>
+                                <p className="mt-2 text-gray-700">Price: {author.price}</p>
+                                {/* Add to Cart Button */}
+                                <button 
+                                    onClick={() => handleAddToCart(author.book, author.name,author.price, author.category)} 
+                                    className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     );
