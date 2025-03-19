@@ -17,6 +17,9 @@ const Navbar = ({ addToCart }) => {
     console.log("Cart toggled:", !isCartOpen); // Debugging: Check if toggleCart works
   };
 
+  // Calculate the total price of the items in the cart
+  const totalPrice = addToCart.reduce((acc, item) => acc + parseFloat(item.price), 0);
+
   const links = (
     <>
       <li>
@@ -86,7 +89,9 @@ const Navbar = ({ addToCart }) => {
       {/* Cart Icon */}
       <div className="ml-96">
         <div className="indicator">
-          <button onClick={toggleCart}> {/* Handle Cart Icon Click */}
+          <button onClick={toggleCart}>
+            {" "}
+            {/* Handle Cart Icon Click */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -102,11 +107,13 @@ const Navbar = ({ addToCart }) => {
               />
             </svg>
           </button>
-          <span className="badge badge-sm indicator-item">{addToCart.length}</span>
+          <span className="badge badge-sm indicator-item">
+            {addToCart.length}
+          </span>
         </div>
       </div>
-   {/* Cart Modal */}
-   {isCartOpen && (
+      {/* Cart Modal */}
+      {isCartOpen && (
         <div className="absolute top-16 right-0 w-80 bg-white shadow-lg flex-col p-4 z-10">
           <h2 className="text-xl font-bold mb-4">Your Cart</h2> {/* Separate Cart Header */}
           {addToCart.length === 0 ? (
@@ -115,14 +122,18 @@ const Navbar = ({ addToCart }) => {
             <ol className="list-decimal pl-5 space-y-2">
               {/* Map over addToCart array and display book titles */}
               {addToCart.map((item, index) => (
-                <li  key={index} className="flex py-1 px-5 border bg-blue-500">
-                 <p> {item.book || item.name} </p>
-                 <p>{item.price}</p>
+                <li key={index} className="flex py-1 px-5 border bg-blue-500">
+                  <p>{item.book || item.name}</p>
+                  <p>=</p>
+                  <p>{item.price}</p>
                 </li>
               ))}
-              <button className="btn btn-accent">Payment Now</button>
+
+              {/* Display total price */}
+              <button className="btn btn-accent">
+                Payment {totalPrice} Tk
+              </button>
             </ol>
-            
           )}
         </div>
       )}

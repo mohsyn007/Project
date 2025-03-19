@@ -9,20 +9,20 @@ import OldBooks from "./OldBooks";
 
 const Home = () => {
   const [addToCart, setAddToCart] = useState([]);
-  const handleAddToCart = (book, name, category,price) => {
-    const newCart = [...addToCart, book];
-    setAddToCart(newCart);
+
+  const handleAddToCart = (item) => {
+    setAddToCart([...addToCart, item]);
   };
-  
+
   return (
-    <div className="text-center ">
-      <Navbar addToCart={addToCart}></Navbar>
+    <div className="text-center">
+      <Navbar addToCart={addToCart} />
       <p>Today: {moment().format("MMMM Do YYYY")}</p>
-      <Banner></Banner>
-     <Authors handleAddToCart={handleAddToCart}></Authors>
-      <Books handleAddToCart={handleAddToCart}></Books>
-      <OldBooks></OldBooks>
-      <Footer></Footer>
+      <Banner />
+      <Authors handleAddToCart={handleAddToCart} />
+      <Books handleAddToCart={handleAddToCart} />
+      <OldBooks />
+      <Footer />
     </div>
   );
 };
